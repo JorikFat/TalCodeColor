@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
@@ -23,15 +25,15 @@ public class MainActivity extends AppCompatActivity {
             new NumberTag(8),
             new NumberTag(9)};
 
-    NumberTag[] tagsCode = {new NumberTag(1),
-            new NumberTag(2),
-            new NumberTag(3),
-            new NumberTag(4),
-            new NumberTag(5),
-            new NumberTag(6),
-            new NumberTag(7),
-            new NumberTag(8),
-            new NumberTag(9)};
+    CodeTag[] tagsCode = {new CodeTag(),
+            new CodeTag(),
+            new CodeTag(),
+            new CodeTag(),
+            new CodeTag(),
+            new CodeTag(),
+            new CodeTag(),
+            new CodeTag(),
+            new CodeTag()};
 
     SharedPreferences prefs;
 
@@ -65,55 +67,18 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("colors", MODE_PRIVATE);
         int[] colors = readPrefs();
         //// TODO: 25.07.2017 hardcode
-        changeColor(findViewById(R.id.colorPicker1), colors[0]);
-        changeColor(findViewById(R.id.colorPicker2), colors[1]);
-        changeColor(findViewById(R.id.colorPicker3), colors[2]);
-        changeColor(findViewById(R.id.colorPicker4), colors[3]);
-        changeColor(findViewById(R.id.colorPicker5), colors[4]);
-        changeColor(findViewById(R.id.colorPicker6), colors[5]);
-        changeColor(findViewById(R.id.colorPicker7), colors[6]);
-        changeColor(findViewById(R.id.colorPicker8), colors[7]);
-        changeColor(findViewById(R.id.colorPicker9), colors[8]);
+        changeTableRow(findViewById(R.id.row1), colors[0]);
+        changeTableRow(findViewById(R.id.row2), colors[1]);
+        changeTableRow(findViewById(R.id.row3), colors[2]);
+        changeTableRow(findViewById(R.id.row4), colors[3]);
+        changeTableRow(findViewById(R.id.row5), colors[4]);
+        changeTableRow(findViewById(R.id.row6), colors[5]);
+        changeTableRow(findViewById(R.id.row7), colors[6]);
+        changeTableRow(findViewById(R.id.row8), colors[7]);
+        changeTableRow(findViewById(R.id.row9), colors[8]);
     }
 
     public void pickColor(final View v){
-        final int tag;
-        //// TODO: 25.07.2017 hardcode
-        switch (v.getId()){
-            case R.id.colorPicker1:
-                tag = 0;
-                break;
-            case R.id.colorPicker2:
-                tag = 1;
-                break;
-            case R.id.colorPicker3:
-                tag = 2;
-                break;
-            case R.id.colorPicker4:
-                tag = 3;
-                break;
-            case R.id.colorPicker5:
-                tag = 4;
-                break;
-            case R.id.colorPicker6:
-                tag = 5;
-                break;
-            case R.id.colorPicker7:
-                tag = 6;
-                break;
-            case R.id.colorPicker8:
-                tag = 7;
-                break;
-            case R.id.colorPicker9:
-                tag = 8;
-                break;
-            default:
-                tag = 9;
-        }
-
-        View parent = (View) v.getParent();
-        final TextView numberView = (TextView)parent.findViewWithTag(tagsNum[tag]);
-        final TextView codeView = (TextView)parent.findViewWithTag(tagsCode[tag]);
         final ColorPicker colorPick = new ColorPicker(this);
         new AlertDialog.Builder(this)
                 .setView(colorPick)
@@ -121,57 +86,37 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        View parent = (View)v.getParent();
                         int color = colorPick.getColor();
-                        v.setBackgroundColor(color);
-                        numberView.setTextColor(color);
-                        codeView.setText(getResources().getString(R.string.code, color));
-                        savePrefs(tag+1, color);
+                        changeTableRow(parent, color);
+                        savePrefs(getNumRow(parent), color);
                     }
                 })
                 .show();
     }
 
-    private void changeColor(View colorSelectorView, int newColor){
-        final int tag;
-        //// TODO: 25.07.2017 hardcode
-        switch (colorSelectorView.getId()){
-            case R.id.colorPicker1:
-                tag = 0;
-                break;
-            case R.id.colorPicker2:
-                tag = 1;
-                break;
-            case R.id.colorPicker3:
-                tag = 2;
-                break;
-            case R.id.colorPicker4:
-                tag = 3;
-                break;
-            case R.id.colorPicker5:
-                tag = 4;
-                break;
-            case R.id.colorPicker6:
-                tag = 5;
-                break;
-            case R.id.colorPicker7:
-                tag = 6;
-                break;
-            case R.id.colorPicker8:
-                tag = 7;
-                break;
-            case R.id.colorPicker9:
-                tag = 8;
-                break;
-            default:
-                tag = 9;
+    private void changeTableRow(View tableRow, int newColor){
+        ViewGroup viewGroup = (ViewGroup)tableRow;
+        int childCount = viewGroup.getChildCount();
+        for (int i=0; i<childCount; i++){
+            View child = viewGroup.getChildAt(i);
+            if (child.getClass() == RelativeLayout.class){
+                child.setBackgroundColor(newColor);
+            } else {
+                if (child.getTag().getClass() == NumberTag.class){
+                    ((TextView)child).setTextColor(newColor);
+                } else {
+                    ((TextView)child).setText(getResources().getString(R.string.code, newColor));
+                }
+            }
         }
-        View parent = (View) colorSelectorView.getParent();
-        final TextView numberView = (TextView)parent.findViewWithTag(tagsNum[tag]);
-        final TextView codeView = (TextView)parent.findViewWithTag(tagsCode[tag]);
-        colorSelectorView.setBackgroundColor(newColor);
-        numberView.setTextColor(newColor);
-        codeView.setText(getResources().getString(R.string.code, newColor));
+    }
 
+    private int getNumRow(View tableRow){
+        ViewGroup viewGroup = (ViewGroup)tableRow;
+        TextView textView = (TextView)viewGroup.getChildAt(0);
+        String string = String.valueOf(textView.getText());
+        return Integer.parseInt(string);
     }
 
     private int[] readPrefs(){
@@ -202,4 +147,6 @@ public class MainActivity extends AppCompatActivity {
             return numberTag;
         }
     }
+
+    private class CodeTag{}
 }
