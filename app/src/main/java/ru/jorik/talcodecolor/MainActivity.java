@@ -3,6 +3,8 @@ package ru.jorik.talcodecolor;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,26 +17,6 @@ import com.larswerkman.holocolorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
 
-    NumberTag[] tagsNum = {new NumberTag(),
-            new NumberTag(),
-            new NumberTag(),
-            new NumberTag(),
-            new NumberTag(),
-            new NumberTag(),
-            new NumberTag(),
-            new NumberTag(),
-            new NumberTag()};
-
-    CodeTag[] tagsCode = {new CodeTag(),
-            new CodeTag(),
-            new CodeTag(),
-            new CodeTag(),
-            new CodeTag(),
-            new CodeTag(),
-            new CodeTag(),
-            new CodeTag(),
-            new CodeTag()};
-
     SharedPreferences prefs;
 
     @Override
@@ -43,26 +25,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //// TODO: 25.07.2017 hardcode
-        findViewById(R.id.number1).setTag(tagsNum[0]);
-        findViewById(R.id.number2).setTag(tagsNum[1]);
-        findViewById(R.id.number3).setTag(tagsNum[2]);
-        findViewById(R.id.number4).setTag(tagsNum[3]);
-        findViewById(R.id.number5).setTag(tagsNum[4]);
-        findViewById(R.id.number6).setTag(tagsNum[5]);
-        findViewById(R.id.number7).setTag(tagsNum[6]);
-        findViewById(R.id.number8).setTag(tagsNum[7]);
-        findViewById(R.id.number9).setTag(tagsNum[8]);
+        findViewById(R.id.number1).setTag(new NumberTag());
+        findViewById(R.id.number2).setTag(new NumberTag());
+        findViewById(R.id.number3).setTag(new NumberTag());
+        findViewById(R.id.number4).setTag(new NumberTag());
+        findViewById(R.id.number5).setTag(new NumberTag());
+        findViewById(R.id.number6).setTag(new NumberTag());
+        findViewById(R.id.number7).setTag(new NumberTag());
+        findViewById(R.id.number8).setTag(new NumberTag());
+        findViewById(R.id.number9).setTag(new NumberTag());
 
         //// TODO: 25.07.2017 hardcode
-        findViewById(R.id.code1).setTag(tagsCode[0]);
-        findViewById(R.id.code2).setTag(tagsCode[1]);
-        findViewById(R.id.code3).setTag(tagsCode[2]);
-        findViewById(R.id.code4).setTag(tagsCode[3]);
-        findViewById(R.id.code5).setTag(tagsCode[4]);
-        findViewById(R.id.code6).setTag(tagsCode[5]);
-        findViewById(R.id.code7).setTag(tagsCode[6]);
-        findViewById(R.id.code8).setTag(tagsCode[7]);
-        findViewById(R.id.code9).setTag(tagsCode[8]);
+        findViewById(R.id.code1).setTag(new CodeTag());
+        findViewById(R.id.code2).setTag(new CodeTag());
+        findViewById(R.id.code3).setTag(new CodeTag());
+        findViewById(R.id.code4).setTag(new CodeTag());
+        findViewById(R.id.code5).setTag(new CodeTag());
+        findViewById(R.id.code6).setTag(new CodeTag());
+        findViewById(R.id.code7).setTag(new CodeTag());
+        findViewById(R.id.code8).setTag(new CodeTag());
+        findViewById(R.id.code9).setTag(new CodeTag());
 
         prefs = getSharedPreferences("colors", MODE_PRIVATE);
         int[] colors = readPrefs();
@@ -79,7 +61,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void pickColor(final View v){
+        int oldColor = Color.TRANSPARENT;
         final ColorPicker colorPick = new ColorPicker(this);
+        Drawable background = v.getBackground();
+        if (background instanceof ColorDrawable){
+            oldColor = ((ColorDrawable) background).getColor();
+        }
+        colorPick.setColor(oldColor);
         new AlertDialog.Builder(this)
                 .setView(colorPick)
                 .setTitle("Выбери цвет")
@@ -103,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
             if (child.getClass() == RelativeLayout.class){
                 child.setBackgroundColor(newColor);
             } else {
+                //TAGS: единственное их использование во всем коде
+                //// TODO: 25.07.2017 придумать способ убрать Tags
                 if (child.getTag().getClass() == NumberTag.class){
                     ((TextView)child).setTextColor(newColor);
                 } else {
@@ -136,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+
+    //TAGS.classes
     private class NumberTag {}
 
     private class CodeTag{}
