@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context="ru.jorik.talcodecolor.MainActivity">
+
+    <!--записать в стили-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+        <TableRow
+            android:id="@+id/row1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+
+            >
+
+            <TextView
+                android:id="@+id/number1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="1"
+                android:textSize="35sp" />
+
+            <RelativeLayout
+                android:id="@+id/colorPicker1"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                android:background="@color/colorAccent"
+                android:onClick="pickColor"
+                />
+
+            <TextView
+                android:id="@+id/code1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="#000000"
+                android:textSize="30sp"
+                />
+        </TableRow>
+        <TableRow
+            android:id="@+id/row2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/number2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textSize="35sp" />
+
+            <RelativeLayout
+                android:id="@+id/colorPicker2"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                tools:background="@color/colorAccent"
+                />
+
+            <TextView
+                android:id="@+id/code2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="#000000"
+                android:textSize="30sp"
+                />
+        </TableRow>
+        <TableRow
+            android:id="@+id/row3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/number3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:textSize="35sp" />
+
+            <RelativeLayout
+                android:id="@+id/colorPicker3"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                tools:background="@color/colorAccent"
+                />
+
+            <TextView
+                android:id="@+id/code3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="#000000"
+                android:textSize="30sp"
+                />
+        </TableRow>
+        <TableRow
+            android:id="@+id/row4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/number4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:textSize="35sp" />
+
+            <RelativeLayout
+                android:id="@+id/colorPicker4"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                tools:background="@color/colorAccent"
+                />
+
+            <TextView
+                android:id="@+id/code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="#000000"
+                android:textSize="30sp"
+                />
+        </TableRow>
+        <TableRow
+            android:id="@+id/row5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/number5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textSize="35sp" />
+
+            <RelativeLayout
+                android:id="@+id/colorPicker5"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                tools:background="@color/colorAccent"
+                />
+
+            <TextView
+                android:id="@+id/code5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="#000000"
+                android:textSize="30sp"
+                />
+        </TableRow>
+        <TableRow
+            android:id="@+id/row6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/number6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6"
+                android:textSize="35sp" />
+
+            <RelativeLayout
+                android:id="@+id/colorPicker6"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                tools:background="@color/colorAccent"
+                />
+
+            <TextView
+                android:id="@+id/code6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="#000000"
+                android:textSize="30sp"
+                />
+        </TableRow>
+        <TableRow
+            android:id="@+id/row7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/number7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:textSize="35sp" />
+
+            <RelativeLayout
+                android:id="@+id/colorPicker7"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                tools:background="@color/colorAccent"
+                />
+
+            <TextView
+                android:id="@+id/code7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="#000000"
+                android:textSize="30sp"
+                />
+        </TableRow>
+        <TableRow
+            android:id="@+id/row8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/number8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8"
+                android:textSize="35sp" />
+
+            <RelativeLayout
+                android:id="@+id/colorPicker8"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                tools:background="@color/colorAccent"
+                />
+
+            <TextView
+                android:id="@+id/code8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="#000000"
+                android:textSize="30sp"
+                />
+        </TableRow>
+        <TableRow
+            android:id="@+id/row9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:id="@+id/number9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9"
+                android:textSize="35sp" />
+
+            <RelativeLayout
+                android:id="@+id/colorPicker9"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                tools:background="@color/colorAccent"
+                />
+
+            <TextView
+                android:id="@+id/code9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="#000000"
+                android:textSize="30sp"
+                />
+        </TableRow>
+        </LinearLayout>
+
+    </ScrollView>
+</TableLayout>
