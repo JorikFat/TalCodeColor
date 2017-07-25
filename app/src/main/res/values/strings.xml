@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TalCodeColor</string>
+    <string name="code">#%06X</string>
 </resources>

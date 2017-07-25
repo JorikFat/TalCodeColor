@@ -13,7 +13,16 @@ import com.madrapps.pikolo.listeners.OnColorSelectionListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    NumberTag[] tags = {new NumberTag(1),
+    NumberTag[] tagsNum = {new NumberTag(1),
+            new NumberTag(2),
+            new NumberTag(3),
+            new NumberTag(4),
+            new NumberTag(5),
+            new NumberTag(6),
+            new NumberTag(7),
+            new NumberTag(8),
+            new NumberTag(9)};
+    NumberTag[] tagsCode = {new NumberTag(1),
             new NumberTag(2),
             new NumberTag(3),
             new NumberTag(4),
@@ -28,15 +37,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.number1).setTag(tags[0]);
-        findViewById(R.id.number2).setTag(tags[1]);
-        findViewById(R.id.number3).setTag(tags[2]);
-        findViewById(R.id.number4).setTag(tags[3]);
-        findViewById(R.id.number5).setTag(tags[4]);
-        findViewById(R.id.number6).setTag(tags[5]);
-        findViewById(R.id.number7).setTag(tags[6]);
-        findViewById(R.id.number8).setTag(tags[7]);
-        findViewById(R.id.number9).setTag(tags[8]);
+        findViewById(R.id.number1).setTag(tagsNum[0]);
+        findViewById(R.id.number2).setTag(tagsNum[1]);
+        findViewById(R.id.number3).setTag(tagsNum[2]);
+        findViewById(R.id.number4).setTag(tagsNum[3]);
+        findViewById(R.id.number5).setTag(tagsNum[4]);
+        findViewById(R.id.number6).setTag(tagsNum[5]);
+        findViewById(R.id.number7).setTag(tagsNum[6]);
+        findViewById(R.id.number8).setTag(tagsNum[7]);
+        findViewById(R.id.number9).setTag(tagsNum[8]);
+
+        findViewById(R.id.code1).setTag(tagsCode[0]);
+        findViewById(R.id.code2).setTag(tagsCode[1]);
+        findViewById(R.id.code3).setTag(tagsCode[2]);
+        findViewById(R.id.code4).setTag(tagsCode[3]);
+        findViewById(R.id.code5).setTag(tagsCode[4]);
+        findViewById(R.id.code6).setTag(tagsCode[5]);
+        findViewById(R.id.code7).setTag(tagsCode[6]);
+        findViewById(R.id.code8).setTag(tagsCode[7]);
+        findViewById(R.id.code9).setTag(tagsCode[8]);
     }
 
     public void pickColor(final View v){
@@ -73,13 +92,16 @@ public class MainActivity extends AppCompatActivity {
                 tag = 9;
         }
 
-        final TextView textView = (TextView)((View)v.getParent()).findViewWithTag(tags[tag]);
+        View parent = (View) v.getParent();
+        final TextView numberView = (TextView)parent.findViewWithTag(tagsNum[tag]);
+        final TextView codeView = (TextView)parent.findViewWithTag(tagsCode[tag]);
         final HSLColorPicker colorPicker = new HSLColorPicker(this);
         colorPicker.setColorSelectionListener(new OnColorSelectionListener() {
             @Override
             public void onColorSelected(int i) {
                 v.getBackground().setColorFilter(i, PorterDuff.Mode.MULTIPLY);
-                textView.setTextColor(i);
+                numberView.setTextColor(i);
+                codeView.setText(getResources().getString(R.string.code, i));
             }
 
             @Override
@@ -98,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        v.setBackgroundColor(textView.getCurrentTextColor());
+                        int color = numberView.getCurrentTextColor();
+                        v.setBackgroundColor(color);
+
                     }
                 })
                 .show();
