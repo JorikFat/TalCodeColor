@@ -65,16 +65,15 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("colors", MODE_PRIVATE);
         int[] colors = readPrefs();
         //// TODO: 25.07.2017 hardcode
-        findViewById(R.id.colorPicker1).setBackgroundColor(colors[0]);
-        findViewById(R.id.colorPicker1).setBackgroundColor(colors[1]);
-        findViewById(R.id.colorPicker1).setBackgroundColor(colors[2]);
-        findViewById(R.id.colorPicker1).setBackgroundColor(colors[3]);
-        findViewById(R.id.colorPicker1).setBackgroundColor(colors[4]);
-        findViewById(R.id.colorPicker1).setBackgroundColor(colors[5]);
-        findViewById(R.id.colorPicker1).setBackgroundColor(colors[6]);
-        findViewById(R.id.colorPicker1).setBackgroundColor(colors[7]);
-        findViewById(R.id.colorPicker1).setBackgroundColor(colors[8]);
-
+        changeColor(findViewById(R.id.colorPicker1), colors[0]);
+        changeColor(findViewById(R.id.colorPicker2), colors[1]);
+        changeColor(findViewById(R.id.colorPicker3), colors[2]);
+        changeColor(findViewById(R.id.colorPicker4), colors[3]);
+        changeColor(findViewById(R.id.colorPicker5), colors[4]);
+        changeColor(findViewById(R.id.colorPicker6), colors[5]);
+        changeColor(findViewById(R.id.colorPicker7), colors[6]);
+        changeColor(findViewById(R.id.colorPicker8), colors[7]);
+        changeColor(findViewById(R.id.colorPicker9), colors[8]);
     }
 
     public void pickColor(final View v){
@@ -132,9 +131,53 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    private void changeColor(View colorSelectorView, int newColor){
+        final int tag;
+        //// TODO: 25.07.2017 hardcode
+        switch (colorSelectorView.getId()){
+            case R.id.colorPicker1:
+                tag = 0;
+                break;
+            case R.id.colorPicker2:
+                tag = 1;
+                break;
+            case R.id.colorPicker3:
+                tag = 2;
+                break;
+            case R.id.colorPicker4:
+                tag = 3;
+                break;
+            case R.id.colorPicker5:
+                tag = 4;
+                break;
+            case R.id.colorPicker6:
+                tag = 5;
+                break;
+            case R.id.colorPicker7:
+                tag = 6;
+                break;
+            case R.id.colorPicker8:
+                tag = 7;
+                break;
+            case R.id.colorPicker9:
+                tag = 8;
+                break;
+            default:
+                tag = 9;
+        }
+        View parent = (View) colorSelectorView.getParent();
+        final TextView numberView = (TextView)parent.findViewWithTag(tagsNum[tag]);
+        final TextView codeView = (TextView)parent.findViewWithTag(tagsCode[tag]);
+        colorSelectorView.setBackgroundColor(newColor);
+        numberView.setTextColor(newColor);
+        codeView.setText(getResources().getString(R.string.code, newColor));
+
+    }
+
     private int[] readPrefs(){
         int[] rArray = new int[9];
         for (int i=0; i<9; i++){
+            //// TODO: 25.07.2017 переделать строку color в String.format
             rArray[i] = prefs.getInt("color"+(i+1), Color.BLACK);
         }
         return rArray;
@@ -142,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void savePrefs(int num, int color){
         SharedPreferences.Editor editor = prefs.edit();
+        //// TODO: 25.07.2017 переделать строку color в String.format
         String numColor = "color" + num;
         editor.putInt(numColor, color);
         editor.apply();
