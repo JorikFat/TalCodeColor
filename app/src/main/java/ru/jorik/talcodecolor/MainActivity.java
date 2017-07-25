@@ -1,15 +1,13 @@
 package ru.jorik.talcodecolor;
 
 import android.content.DialogInterface;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.madrapps.pikolo.HSLColorPicker;
-import com.madrapps.pikolo.listeners.OnColorSelectionListener;
+import com.larswerkman.holocolorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -95,33 +93,17 @@ public class MainActivity extends AppCompatActivity {
         View parent = (View) v.getParent();
         final TextView numberView = (TextView)parent.findViewWithTag(tagsNum[tag]);
         final TextView codeView = (TextView)parent.findViewWithTag(tagsCode[tag]);
-        final HSLColorPicker colorPicker = new HSLColorPicker(this);
-        colorPicker.setColorSelectionListener(new OnColorSelectionListener() {
-            @Override
-            public void onColorSelected(int i) {
-                v.getBackground().setColorFilter(i, PorterDuff.Mode.MULTIPLY);
-                numberView.setTextColor(i);
-                codeView.setText(getResources().getString(R.string.code, i));
-            }
-
-            @Override
-            public void onColorSelectionStart(int i) {
-
-            }
-
-            @Override
-            public void onColorSelectionEnd(int i) {
-
-            }
-        });
+        final ColorPicker colorPick = new ColorPicker(this);
         new AlertDialog.Builder(this)
-                .setView(colorPicker)
+                .setView(colorPick)
                 .setTitle("Выбери цвет")
                 .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        int color = numberView.getCurrentTextColor();
+                        int color = colorPick.getColor();
                         v.setBackgroundColor(color);
+                        numberView.setTextColor(color);
+                        codeView.setText(getResources().getString(R.string.code, color));
 
                     }
                 })
