@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             oldColor = ((ColorDrawable) background).getColor();
         }
         colorPick.setColor(oldColor);
+        colorPick.setOldCenterColor(oldColor);
         new AlertDialog.Builder(this)
                 .setView(colorPick)
                 .setTitle("Выбери цвет")
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
     private int[] readPrefs(){
         int[] rArray = new int[9];
         for (int i=0; i<9; i++){
-            //// TODO: 25.07.2017 переделать строку color в String.format
             rArray[i] = prefs.getInt("color"+(i+1), Color.BLACK);
         }
         return rArray;
@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void savePrefs(int num, int color){
         SharedPreferences.Editor editor = prefs.edit();
-        //// TODO: 25.07.2017 переделать строку color в String.format
         String numColor = "color" + num;
         editor.putInt(numColor, color);
         editor.apply();
