@@ -15,15 +15,15 @@ import com.larswerkman.holocolorpicker.ColorPicker;
 
 public class MainActivity extends AppCompatActivity {
 
-    NumberTag[] tagsNum = {new NumberTag(1),
-            new NumberTag(2),
-            new NumberTag(3),
-            new NumberTag(4),
-            new NumberTag(5),
-            new NumberTag(6),
-            new NumberTag(7),
-            new NumberTag(8),
-            new NumberTag(9)};
+    NumberTag[] tagsNum = {new NumberTag(),
+            new NumberTag(),
+            new NumberTag(),
+            new NumberTag(),
+            new NumberTag(),
+            new NumberTag(),
+            new NumberTag(),
+            new NumberTag(),
+            new NumberTag()};
 
     CodeTag[] tagsCode = {new CodeTag(),
             new CodeTag(),
@@ -136,17 +136,7 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    private class NumberTag {
-        int numberTag;
-
-        public NumberTag(int numberTag) {
-            this.numberTag = numberTag;
-        }
-
-        public int getNumberTag() {
-            return numberTag;
-        }
-    }
+    private class NumberTag {}
 
     private class CodeTag{}
 }
