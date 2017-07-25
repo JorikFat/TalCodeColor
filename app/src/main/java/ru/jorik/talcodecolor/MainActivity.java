@@ -24,28 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //// TODO: 25.07.2017 hardcode
-        findViewById(R.id.number1).setTag(new NumberTag());
-        findViewById(R.id.number2).setTag(new NumberTag());
-        findViewById(R.id.number3).setTag(new NumberTag());
-        findViewById(R.id.number4).setTag(new NumberTag());
-        findViewById(R.id.number5).setTag(new NumberTag());
-        findViewById(R.id.number6).setTag(new NumberTag());
-        findViewById(R.id.number7).setTag(new NumberTag());
-        findViewById(R.id.number8).setTag(new NumberTag());
-        findViewById(R.id.number9).setTag(new NumberTag());
-
-        //// TODO: 25.07.2017 hardcode
-        findViewById(R.id.code1).setTag(new CodeTag());
-        findViewById(R.id.code2).setTag(new CodeTag());
-        findViewById(R.id.code3).setTag(new CodeTag());
-        findViewById(R.id.code4).setTag(new CodeTag());
-        findViewById(R.id.code5).setTag(new CodeTag());
-        findViewById(R.id.code6).setTag(new CodeTag());
-        findViewById(R.id.code7).setTag(new CodeTag());
-        findViewById(R.id.code8).setTag(new CodeTag());
-        findViewById(R.id.code9).setTag(new CodeTag());
-
         prefs = getSharedPreferences("colors", MODE_PRIVATE);
         int[] colors = readPrefs();
         //// TODO: 25.07.2017 hardcode
@@ -91,12 +69,16 @@ public class MainActivity extends AppCompatActivity {
             if (child.getClass() == RelativeLayout.class){
                 child.setBackgroundColor(newColor);
             } else {
-                //TAGS: единственное их использование во всем коде
-                //// TODO: 25.07.2017 придумать способ убрать Tags
-                if (child.getTag().getClass() == NumberTag.class){
-                    ((TextView)child).setTextColor(newColor);
+                /*Костыль:
+                * Данное решение помогает определить где какой TextView.
+                * Это нужно чтобы не писать на каждый View Tag.
+                * */
+                TextView textView = (TextView)child;
+                char fChar = textView.getText().charAt(0);
+                if (fChar != '#'){
+                    textView.setTextColor(newColor);
                 } else {
-                    ((TextView)child).setText(getResources().getString(R.string.code, newColor));
+                    textView.setText(getResources().getString(R.string.code, newColor));
                 }
             }
         }
@@ -125,10 +107,4 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt(numColor, color);
         editor.apply();
     }
-
-
-    //TAGS.classes
-    private class NumberTag {}
-
-    private class CodeTag{}
 }
