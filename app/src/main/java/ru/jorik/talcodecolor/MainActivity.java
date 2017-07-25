@@ -1,6 +1,8 @@
 package ru.jorik.talcodecolor;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
             new NumberTag(7),
             new NumberTag(8),
             new NumberTag(9)};
+
     NumberTag[] tagsCode = {new NumberTag(1),
             new NumberTag(2),
             new NumberTag(3),
@@ -30,11 +33,14 @@ public class MainActivity extends AppCompatActivity {
             new NumberTag(8),
             new NumberTag(9)};
 
+    SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //// TODO: 25.07.2017 hardcode
         findViewById(R.id.number1).setTag(tagsNum[0]);
         findViewById(R.id.number2).setTag(tagsNum[1]);
         findViewById(R.id.number3).setTag(tagsNum[2]);
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.number8).setTag(tagsNum[7]);
         findViewById(R.id.number9).setTag(tagsNum[8]);
 
+        //// TODO: 25.07.2017 hardcode
         findViewById(R.id.code1).setTag(tagsCode[0]);
         findViewById(R.id.code2).setTag(tagsCode[1]);
         findViewById(R.id.code3).setTag(tagsCode[2]);
@@ -54,10 +61,25 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.code7).setTag(tagsCode[6]);
         findViewById(R.id.code8).setTag(tagsCode[7]);
         findViewById(R.id.code9).setTag(tagsCode[8]);
+
+        prefs = getSharedPreferences("colors", MODE_PRIVATE);
+        int[] colors = readPrefs();
+        //// TODO: 25.07.2017 hardcode
+        findViewById(R.id.colorPicker1).setBackgroundColor(colors[0]);
+        findViewById(R.id.colorPicker1).setBackgroundColor(colors[1]);
+        findViewById(R.id.colorPicker1).setBackgroundColor(colors[2]);
+        findViewById(R.id.colorPicker1).setBackgroundColor(colors[3]);
+        findViewById(R.id.colorPicker1).setBackgroundColor(colors[4]);
+        findViewById(R.id.colorPicker1).setBackgroundColor(colors[5]);
+        findViewById(R.id.colorPicker1).setBackgroundColor(colors[6]);
+        findViewById(R.id.colorPicker1).setBackgroundColor(colors[7]);
+        findViewById(R.id.colorPicker1).setBackgroundColor(colors[8]);
+
     }
 
     public void pickColor(final View v){
-        int tag;
+        final int tag;
+        //// TODO: 25.07.2017 hardcode
         switch (v.getId()){
             case R.id.colorPicker1:
                 tag = 0;
@@ -104,10 +126,25 @@ public class MainActivity extends AppCompatActivity {
                         v.setBackgroundColor(color);
                         numberView.setTextColor(color);
                         codeView.setText(getResources().getString(R.string.code, color));
-
+                        savePrefs(tag+1, color);
                     }
                 })
                 .show();
+    }
+
+    private int[] readPrefs(){
+        int[] rArray = new int[9];
+        for (int i=0; i<9; i++){
+            rArray[i] = prefs.getInt("color"+(i+1), Color.BLACK);
+        }
+        return rArray;
+    }
+
+    private void savePrefs(int num, int color){
+        SharedPreferences.Editor editor = prefs.edit();
+        String numColor = "color" + num;
+        editor.putInt(numColor, color);
+        editor.apply();
     }
 
     private class NumberTag {
