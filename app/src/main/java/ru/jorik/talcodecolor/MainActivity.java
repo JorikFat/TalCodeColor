@@ -26,20 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
         prefs = getSharedPreferences("colors", MODE_PRIVATE);
         int[] colors = readPrefs();
-        //// TODO: 25.07.2017 hardcode
-        changeTableRow(findViewById(R.id.row1), colors[0]);
-        changeTableRow(findViewById(R.id.row2), colors[1]);
-        changeTableRow(findViewById(R.id.row3), colors[2]);
-        changeTableRow(findViewById(R.id.row4), colors[3]);
-        changeTableRow(findViewById(R.id.row5), colors[4]);
-        changeTableRow(findViewById(R.id.row6), colors[5]);
-        changeTableRow(findViewById(R.id.row7), colors[6]);
-        changeTableRow(findViewById(R.id.row8), colors[7]);
-        changeTableRow(findViewById(R.id.row9), colors[8]);
+
+        ViewGroup liner = (ViewGroup) findViewById(R.id.linerLayout);
+        for (int i=0; i<9; i++){
+            changeTableRow(liner.getChildAt(i), colors[i]);
+        }
     }
 
     public void pickColor(final View v){
-        int oldColor = Color.TRANSPARENT;
+        int oldColor = Color.BLACK;
         final ColorPicker colorPick = new ColorPicker(this);
         Drawable background = v.getBackground();
         if (background instanceof ColorDrawable){
