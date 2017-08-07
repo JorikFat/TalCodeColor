@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
+import com.larswerkman.holocolorpicker.SVBar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,21 +36,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void pickColor(final View v){
         int oldColor = Color.BLACK;
-        final ColorPicker colorPick = new ColorPicker(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_colorpicker, null);
+        final ColorPicker colorPicker = (ColorPicker) dialogView.findViewById(R.id.colorPicker);
+        SVBar svBar = (SVBar) dialogView.findViewById(R.id.svBar);
+        colorPicker.addSVBar(svBar);
         Drawable background = v.getBackground();
         if (background instanceof ColorDrawable){
             oldColor = ((ColorDrawable) background).getColor();
         }
-        colorPick.setColor(oldColor);
-        colorPick.setOldCenterColor(oldColor);
+
+        colorPicker.setColor(oldColor);
+        colorPicker.setOldCenterColor(oldColor);
+
+
+
         new AlertDialog.Builder(this)
-                .setView(colorPick)
+                .setView(dialogView)
                 .setTitle("Выбери цвет")
                 .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         View parent = (View)v.getParent();
-                        int color = colorPick.getColor();
+                        int color = colorPicker.getColor();
                         changeTableRow(parent, color);
                         savePrefs(getNumRow(parent), color);
                     }
